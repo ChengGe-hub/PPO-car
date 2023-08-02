@@ -48,7 +48,7 @@ def train_ppo(env, num_episodes, hidden_dim, batch_size, eps_clip, gamma, lr_act
         episode_loss_actor = 0
         episode_loss_critic = 0
         position = []
-        pos = []
+        #pos = []
 
         while not done:
             state = torch.from_numpy(state).float()
@@ -56,7 +56,7 @@ def train_ppo(env, num_episodes, hidden_dim, batch_size, eps_clip, gamma, lr_act
             dist = Categorical(logits=action_probs)
             action = dist.sample().item()
             next_state, reward, done, _ = env.step(action)
-            pos.append(next_state)
+            #pos.append(next_state)
 
             next_state = torch.from_numpy(next_state).float()
             reward = torch.tensor(reward)
@@ -95,7 +95,7 @@ def train_ppo(env, num_episodes, hidden_dim, batch_size, eps_clip, gamma, lr_act
 
         if episode_reward > best_rewards:
             best_rewards = episode_reward
-            best_positions = pos
+            best_positions = position
 
         rewards.append(episode_reward)
         positions.append(position)
@@ -105,16 +105,16 @@ def train_ppo(env, num_episodes, hidden_dim, batch_size, eps_clip, gamma, lr_act
 
 
 # 设置训练参数
-num_episodes = 150
+num_episodes = 300
 hidden_dim = 256
 batch_size = 32
 eps_clip = 0.02
-gamma = 0.95
+gamma = 0.9
 lr_actor = 0.0001
 lr_critic = 0.0001
 
 # 创建移动机器人环境实例
-env = RobotEnv(width=6, height=6)
+env = RobotEnv(width=8, height=6)
 
 # 进行训练
 rewards, positions, best_positions = train_ppo(env, num_episodes, hidden_dim, batch_size, eps_clip, gamma, lr_actor, lr_critic)
@@ -126,10 +126,14 @@ plt.ylabel("Reward")
 plt.title("Reward Curve")
 plt.show()
 
+best_positions[:0] = [np.array([0, 0])]
+
 # 绘制最佳轨迹
 x = [pos[0] for pos in best_positions]
 y = [pos[1] for pos in best_positions]
 plt.plot(x, y, c='b', marker='o')
+plt.xticks([-1, 0, 1, 2, 3, 4, 5, 6, 7, 8])
+plt.yticks([-1, 0, 1, 2, 3, 4, 5, 6])
 plt.xlabel("X")
 plt.ylabel("Y")
 plt.title("Best Trajectory")
