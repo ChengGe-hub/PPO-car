@@ -6,5 +6,6 @@
 ![Figure_1](https://github.com/ChengGe-hub/PPO-car/assets/122962934/5339ba93-9366-42ee-8866-18cc13ebd56e)
 
 ## 6个动作
-![Figure_1](https://github.com/ChengGe-hub/PPO-car/assets/122962934/93230f7a-d257-4fe2-8a62-6f8fe4411387)
 ![Figure_2](https://github.com/ChengGe-hub/PPO-car/assets/122962934/8c86ae17-2b92-4549-b871-f269a3d379a1)
+![Figure_1](https://github.com/ChengGe-hub/PPO-car/assets/122962934/93230f7a-d257-4fe2-8a62-6f8fe4411387)
+
